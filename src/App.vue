@@ -4,8 +4,10 @@
     <header>
         <h1>Please enter your license plate number</h1>
         <div class="plate">
-          <input type="text" class="plate__input" v-model="plateNumber">
-          <button class="plate__sendbtn" @click="getCarInfo()">Send</button>
+          <form @submit.prevent="getCarInfo()">
+            <input type="text" class="plate__input" v-model="plateNumber">
+            <button class="plate__sendbtn" type="submit">Send</button>
+          </form>
         </div>
     </header>
 
@@ -14,7 +16,8 @@
       <div class="api__result">
         <!-- Error --> 
         <div v-if="error" class="error">
-          <h3>We couldn't find any information. please make sure you've entered the right plate number</h3>
+          <h3>We couldn't find any information.</h3> 
+            <p>please make sure you've entered the right plate number</p>
         </div>
 
         <!-- Loading -->
@@ -51,8 +54,8 @@
       <div class="slides-container">
         <div class="slides">
           <img src="/images/header.jpg" alt="" />
-          <img src="/images/header.jpg" alt="" />
-          <img src="/images/header.jpg" alt="" />
+          <img src="/images/car.jpg" alt="" />
+          <img src="/images/car2.jpg" alt="" />
         </div>
       </div>
       <div class="slider--next"><font-awesome-icon icon="chevron-right" /></div>
@@ -77,6 +80,11 @@ export default {
       error: false,
       loading: false,
     }
+  },
+  mounted(){
+    fetch('https://api.unsplash.com/search/photos?page=1&query=office')
+    .then(response => response.json())
+    .then(data => console.log(data))
   },
   methods: {
     getCarInfo(){
@@ -129,13 +137,13 @@ body{
   color: $font-color;
   font-size: $font-size;
   line-height: 30px;
+  overflow-x: hidden;
 }
 
 .container{
   width: 100vw;
-  min-height: 100vh;
   display: grid;
-  grid-template: auto minmax(250px, 1.5fr) 0.7fr auto/ 1fr;
+  grid-template: auto 300px 1fr auto/ 1fr;
   grid-template-areas: "header"
   "api"
   "slider"
@@ -159,9 +167,12 @@ header{
 }
 
 .plate{
+  margin: 15px 0;
+
+  form{
   display: flex;
   justify-content: center;
-  margin: 15px 0;
+  }
 }
 
 .plate__input{
@@ -179,6 +190,7 @@ header{
   background: #fdfdfd;
   font-weight: 700;
   color: $font-color;
+  cursor: pointer;
 }
 
 /** Api */
@@ -187,7 +199,6 @@ header{
   display: flex;
   justify-content: center;
   position: relative;
-
 }
 
 .api__title{
@@ -205,7 +216,7 @@ header{
   text-align: left;
   border-radius: 10px;
   position: absolute;
-  top: -40px;
+  top: -50px;
 }
 
 .info{
@@ -215,6 +226,7 @@ header{
 .info__title{
   font-weight: 600;
   line-height: 30px;
+  color: #5e5e5e;
 }
 
 .info__value{
@@ -237,7 +249,6 @@ header{
 .slides-container{
  width: 75%;
  height: 100%;
- background: yellow;
  position: relative;
  overflow: hidden;
 }
@@ -258,11 +269,14 @@ header{
   flex-direction: row;
   flex-wrap: nowrap;
   height: 100%;
+  width: 300%;
 
   img{
     width: 100%;
     height: 100%;
     object-fit: cover;
+    width: 33%;
+     margin: 0 5px;
   }
 }
 
@@ -303,6 +317,80 @@ footer {
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+
+@media (min-width: 765px){
+  .slides{
+    width: 150%;
+  }
+  header{
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .plate{
+    width: 60%;
+  }
+
+  .api__result{
+    width: 60%;
+  }
+
+  .api__title{
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .error{
+    text-align: center;
+  }
+
+}
+
+@media (min-width: 1024px) {
+
+  body{
+    font-size: $font-size + 2px;
+  }
+
+  header{
+    h1{
+      font-size: 2rem;
+    }
+  }
+
+  .plate{
+    margin: 30px 0;
+    width: 40%;
+  }
+
+  .plate__input,
+  .plate__sendbtn{
+    font-size: 1.5rem;
+  }
+
+  .plate__sendbtn{
+    width: 20%;
+  }
+  
+  .slides{
+    width: 100%;
+  }
+  
+  .api__result{
+    width: 40%;
+    font-size: 1.3rem;
+  }
+
+  .info__value{
+    font-size: 2rem;
+    margin-top: 10px;
   }
 }
 
