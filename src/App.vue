@@ -15,14 +15,20 @@
       </div>
     </div>
     <!--Slider -->
-  <div class="slider">
-    <div class="slider--prev"></div>
-    <div class="slides-container"></div>
-    <div class="slider--next"></div>
-  </div>
+    <div class="slider">
+      <div class="slider--prev"><font-awesome-icon icon="chevron-left" /></div>
+      <div class="slides-container">
+        <div class="slides">
+          <img src="/images/header.jpg" alt="" />
+          <img src="/images/header.jpg" alt="" />
+          <img src="/images/header.jpg" alt="" />
+        </div>
+      </div>
+      <div class="slider--next"><font-awesome-icon icon="chevron-right" /></div>
+    </div>
     <!-- Footer -->
     <footer>
-      Footer
+      <p>Copyright <span>&copy;</span> 2020-2021 All rights reserved</p>
     </footer>
   </div>
 </template>
@@ -30,8 +36,11 @@
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 $font-roboto: 'Roboto', sans-serif;
+$font-size: 14px;
 $font-color: #474747;
 $bg: #f6f6f6;
+$primary-color: #ae4c03;
+
 
 *{
   margin: 0;
@@ -51,6 +60,7 @@ input, button {
   text-align: center;
   color: $font-color;
   background: $bg;
+  font-size: $font-size;
 }
 
 .container{
@@ -125,26 +135,58 @@ header{
 
 .slider{
   grid-area: slider;
-  background-color: rgb(126, 187, 126);
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .slides-container{
  width: 75%;
+ height: 100%;
  background: yellow;
+ position: relative;
+ overflow: hidden;
 }
 
 .slider--prev,
 .slider--next{
   width: 10%;
-  background: red;
+  font-size: 1.5rem;
+
+  &:hover{
+    color: $primary-color;
+    cursor: pointer;
+  }
 }
 
+.slides{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 100%;
 
-footer{
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+footer {
   grid-area: footer;
-  background-color: red
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: $primary-color;
+  color: #fff;
+  margin-top: 20px;
+  font-size: $font-size - 1px;
+
+  span {
+    color: #102e4a;
+  }
 }
 
 </style>
